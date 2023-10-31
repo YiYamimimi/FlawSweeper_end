@@ -38,6 +38,7 @@ public interface QuestionMapper extends BaseMapper<ErrorQuestion> {
       * @param redoQuestionDTO
       * @return
       */
-     List<QuestionVo> getRedoQuestion(RedoQuestionDTO redoQuestionDTO);
+     @MapKey(value = "questionid")
+     List<Map<String,Object>> getRedoQuestion(RedoQuestionDTO redoQuestionDTO);
 
 }

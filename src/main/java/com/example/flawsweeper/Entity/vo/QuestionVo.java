@@ -11,5 +11,5 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuestionVo extends ErrorQuestion{
-    private String classifyName;
+    private String classifyname;
 }

@@ -29,7 +29,7 @@ public class ErrorQuestion {
 
     private Integer classifyid;//分类
 
-    private DateTime questiontime;//错题创建日期
+    private Date questiontime;//错题创建日期
 
     private Integer inrecycle;//是否在回收站内：是（1）、否（0）
 

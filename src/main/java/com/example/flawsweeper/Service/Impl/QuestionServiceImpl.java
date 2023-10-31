@@ -77,17 +77,17 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, ErrorQuesti
      * @return
      */
     @Override
-    public List<QuestionVo> getRedoQuestion(RedoQuestionDTO redoQuestionDTO) {
+    public List<Map<String,Object>> getRedoQuestion(RedoQuestionDTO redoQuestionDTO) {
         //获取所有符合条件的错题
-        List<QuestionVo> errorQuestions = questionMapper.getRedoQuestion(redoQuestionDTO);
-
+        List<Map<String,Object>> errorQuestions = questionMapper.getRedoQuestion(redoQuestionDTO);
+//        System.out.println("title22222:"+errorQuestions.get(0).getTitle2());
         System.out.println("获取到的错题数量："+errorQuestions.size());
         System.out.println("获取的所有符合条件错题："+errorQuestions);
         //随机选取5道
         // 打乱列表顺序
         Collections.shuffle(errorQuestions);
         // 选取前5个元素
-        List<QuestionVo> randomQuestions = errorQuestions.subList(0, Math.min(5, errorQuestions.size()));
+        List<Map<String,Object>> randomQuestions = errorQuestions.subList(0, Math.min(5, errorQuestions.size()));
         System.out.println("选取前5个元素:"+randomQuestions);
         return randomQuestions;
     }

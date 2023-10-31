@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -27,18 +28,5 @@ public class RedoQuestionDTO implements Serializable {
      */
     private Integer titletype;
 
-    /**
-     * 是否在收藏夹内：是（1）、否（0）
-     */
-    private Integer incollect;
 
-    /**
-     * 是否近七天创建的错题：是（1）、否（0）
-     */
-    private Integer inSevenDays;
-
-    /**
-     * 今日日期
-     */
-    private DateTime day;
 }

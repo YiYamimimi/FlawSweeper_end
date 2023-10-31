@@ -54,10 +54,10 @@ public class QuestionController {
     @PostMapping("/addQuestion")
     public Result<Integer> addQuestion(@RequestBody ErrorQuestion question,@RequestHeader String Authorization) throws IOException {
         //设置用户id
-//        question.setUid(getuserid(Authorization));
-        question.setUid(1);
+        question.setUid(getuserid(Authorization));
+//        question.setUid(1);
         //初始化收藏状态、时间、不在回收站
-        question.setQuestiontime(new DateTime());
+        question.setQuestiontime(new Date());
         question.setIncollect(0);
         question.setInrecycle(0);
 
@@ -93,7 +93,7 @@ public class QuestionController {
         ErrorQuestion oldquestion = questionService.getQuestionClass(errorQuestion.getQuestionid());
         if(oldquestion.equals(errorQuestion)){ return Result.success(); }//判断有无修改
         else {
-            errorQuestion.setQuestiontime(new DateTime());//有修改则更新错题时间
+            errorQuestion.setQuestiontime(new Date());//有修改则更新错题时间
             if (errorQuestion.getNotes() == null) errorQuestion.setNotes(new ArrayList<>());
             if (errorQuestion.getTitle2() == null) errorQuestion.setTitle2(new ArrayList<>());
 
@@ -191,15 +191,20 @@ public class QuestionController {
     /**
      * 按照条件抽取5道错题
      */
-    @GetMapping("/getRedoQuestion")
-    public Result<List<QuestionVo>> getRedoQuestion(@RequestBody RedoQuestionDTO redoQuestionDTO, @RequestHeader String Authorization){
+    @PostMapping ("/getRedoQuestion")
+    public Result<List<Map<String,Object>>> getRedoQuestion(@RequestBody RedoQuestionDTO redoQuestionDTO, @RequestHeader String Authorization){
+        if(redoQuestionDTO.getClassifyname().equals("随机")){
+            redoQuestionDTO.setClassifyname(null);
+        }
         //设置用户id
-//        redoQuestionDTO.setUid(getuserid(Authorization));
-        redoQuestionDTO.setUid(1);
+        redoQuestionDTO.setUid(getuserid(Authorization));
+//        redoQuestionDTO.setUid(1);
         System.out.println("传入的参数："+redoQuestionDTO);
-        List<QuestionVo> list = questionService.getRedoQuestion(redoQuestionDTO);
+        List<Map<String,Object>> list = questionService.getRedoQuestion(redoQuestionDTO);
+        System.out.println("title2:----"+list);
         return Result.success(list);
     }
+
 
     /**
      * 获取所有错题分类

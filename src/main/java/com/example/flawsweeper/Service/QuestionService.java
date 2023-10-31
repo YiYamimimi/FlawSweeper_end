@@ -38,5 +38,5 @@ public interface QuestionService extends IService<ErrorQuestion> {
       * @param redoQuestionDTO
       * @return
       */
-     List<QuestionVo> getRedoQuestion(RedoQuestionDTO redoQuestionDTO);
+     List<Map<String,Object>> getRedoQuestion(RedoQuestionDTO redoQuestionDTO);
 }

@@ -105,6 +105,25 @@
         <result column="proficiency" property="proficiency"></result>
     </resultMap>
 
+    <resultMap id="questionRedoResult" type="java.util.Map">
+        <id column="questionid" property="questionid"></id>
+        <result column="uid" property="uid"></result>
+        <result column="title1" property="title1"></result>
+        <result column="title2" property="title2" typeHandler="com.example.flawsweeper.Common.ListToVarcharTypeHandler"></result>
+        <result column="titletype" property="titletype"></result>
+        <result column="answer" property="answer"></result>
+        <result column="analysis" property="analysis"></result>
+
+        <result column="notes" property="notes" typeHandler="com.example.flawsweeper.Common.ListToVarcharTypeHandler"></result>
+        <result column="classifyid" property="classifyid"></result>
+        <result column="questiontime" property="questiontime"></result>
+        <result column="imagesrc" property="imagesrc"></result>
+        <result column="inrecycle" property="inrecycle"></result>
+        <result column="incollect" property="incollect"></result>
+        <result column="classifyname" property="classifyname"></result>
+        <result column="proficiency" property="proficiency"></result>
+    </resultMap>
+
     <resultMap id="questionClass" type="com.example.flawsweeper.Entity.ErrorQuestion">
         <id column="questionid" property="questionid"></id>
         <result column="uid" property="uid"></result>
@@ -124,18 +143,19 @@
         <result column="proficiency" property="proficiency"></result>
     </resultMap>
 
-    <select id="getRedoQuestion" resultType="com.example.flawsweeper.Entity.vo.QuestionVo">
+    <select id="getRedoQuestion" resultMap="questionResult">
         SELECT
-            errorquestion.*,classify.classifyname
+            *
         FROM
             errorquestion
         LEFT JOIN classify ON errorquestion.classifyid = classify.classifyid
         <where>
-
-            <if test="inSevenDays == 1">
-                AND questiontime BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE()
+            <if test="titletype == 0 or titletype == 1">
+                and titletype = #{titletype}
             </if>
-
+            <if test="classifyname != null">
+                and classify.classifyname = #{classifyname}
+            </if>
         </where>
     </select>
 
